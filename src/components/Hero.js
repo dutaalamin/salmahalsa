@@ -55,7 +55,7 @@ const Hero = () => {
 
             <div className="hero-cta">
               <a 
-                href="#projects" 
+                href="#portfolio" 
                 className="cta-button primary"
               >
                 View Portfolio
