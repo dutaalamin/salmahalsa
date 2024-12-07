@@ -90,13 +90,31 @@ const portfolio = [
   },
   {
     title: "Party Makeup",
-    description: "Tampilan makeup pesta yang glamor dan memukau. Dibuat khusus untuk membuat Anda menjadi pusat perhatian di setiap acara.",
+    description: "Glamorous and stunning party makeup looks. Specially crafted to make you the center of attention at every event.",
     image: shopImage,
     tags: ["Party", "Glamour", "Evening", "Dramatic"],
     liveUrl: "#",
     sourceUrl: "#",
   }
 ];
+
+function StarBackground() {
+  return (
+    <div className="star-background">
+      {[...Array(50)].map((_, i) => (
+        <div
+          key={i}
+          className="star"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 40}s`
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 function App() {
   const { scrollYProgress } = useScroll();
@@ -105,7 +123,7 @@ function App() {
   const form = useRef();
   const [showMusicModal, setShowMusicModal] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
+  const audioRef = useRef(new Audio('/music/music.mp3'));
 
   const handleMusicChoice = (choice) => {
     setShowMusicModal(false);
@@ -119,9 +137,7 @@ function App() {
     if (isPlaying) {
       audioRef.current.pause();
     } else {
-      audioRef.current.play().catch(error => {
-        console.log('Play prevented:', error);
-      });
+      audioRef.current.play();
     }
     setIsPlaying(!isPlaying);
   };
@@ -146,15 +162,41 @@ function App() {
   };
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 1.0; // Pastikan volume tidak 0
-    }
+    const audio = audioRef.current;
+    
+    // Set loop ke true
+    audio.loop = true;
+    
+    // Event listener untuk ketika lagu selesai
+    const handleEnded = () => {
+      audio.currentTime = 0; // Reset ke awal
+      audio.play(); // Mainkan lagi
+    };
+    
+    // Event listener untuk ketika terjadi error
+    const handleError = (e) => {
+      console.error('Audio error:', e);
+      audio.load(); // Reload audio jika terjadi error
+    };
+
+    audio.addEventListener('ended', handleEnded);
+    audio.addEventListener('error', handleError);
+
+    // Cleanup function
+    return () => {
+      audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener('error', handleError);
+      audio.pause();
+      audio.currentTime = 0;
+    };
   }, []);
 
   return (
     <ParallaxProvider>
       <div className="gradient-overlay"></div>
       <div className="App">
+        <div className="stars"></div>
+        <StarBackground />
         {/* Progress Bar */}
         <motion.div 
           className="progress-bar"
@@ -206,10 +248,10 @@ function App() {
         </section>
 
         {/* Portfolio Section */}
-        <section id="projects" className="projects-section">
-          <div className="projects-container">
+        <section id="portfolio" className="portfolio-section">
+          <div className="portfolio-container">
             <motion.div 
-              className="projects-header"
+              className="portfolio-header"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -218,11 +260,11 @@ function App() {
               <h2>Portfolio</h2>
             </motion.div>
 
-            <div className="projects-grid">
+            <div className="portfolio-grid">
               {portfolio.map((item, index) => (
                 <motion.div 
                   key={index}
-                  className="project-card"
+                  className="portfolio-card"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -236,22 +278,22 @@ function App() {
                     transition: { duration: 0.2 }
                   }}
                 >
-                  <div className="project-image-container">
+                  <div className="portfolio-image-container">
                     <a href={item.liveUrl} target="_blank" rel="noopener noreferrer">
-                      <img src={item.image} alt={item.title} className="project-image" />
-                      <div className="project-overlay">
-                        <div className="project-category">{item.category}</div>
+                      <img src={item.image} alt={item.title} className="portfolio-image" />
+                      <div className="portfolio-overlay">
+                        <div className="portfolio-category">{item.category}</div>
                       </div>
                     </a>
                   </div>
 
-                  <div className="project-content">
-                    <h3 className="project-title">{item.title}</h3>
-                    <p className="project-description">{item.description}</p>
+                  <div className="portfolio-content">
+                    <h3 className="portfolio-title">{item.title}</h3>
+                    <p className="portfolio-description">{item.description}</p>
 
-                    <div className="project-tags">
+                    <div className="portfolio-tags">
                       {item.tags.map((tag, idx) => (
-                        <span key={idx} className="project-tag">{tag}</span>
+                        <span key={idx} className="portfolio-tag">{tag}</span>
                       ))}
                     </div>
                   </div>
@@ -278,13 +320,13 @@ function App() {
           <p>&copy; 2024 Salma Halsa. All rights reserved.</p>
         </footer>
 
-        <audio ref={audioRef} src="/music/music.mp3" loop />
         <button 
+          className="music-toggle" 
           onClick={togglePlay}
-          className="music-toggle"
-          aria-label={isPlaying ? 'Pause Music' : 'Play Music'}
+          aria-label={isPlaying ? 'Pause music' : 'Play music'}
         >
-          <i className={isPlaying ? 'fas fa-pause' : 'fas fa-play'}></i>
+          <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-music'}`}></i>
+          {isPlaying ? 'Now Playing' : 'Play Music'}
         </button>
       </div>
     </ParallaxProvider>
