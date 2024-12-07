@@ -116,7 +116,7 @@ body::after {
 
 .hero,
 .tech-stack-section,
-.projects-section,
+.portfolio-section,
 .contact-section {
   position: relative;
   z-index: 2;
@@ -150,43 +150,26 @@ body::after {
   background: #FFB6C1;
 }
 
-/* Projects Section */
-.projects-section {
+/* Portfolio Section */
+.portfolio-section {
   padding: 4rem 2rem;
   background: transparent;
   position: relative;
   z-index: 1;
 }
 
-.projects-container {
+.portfolio-container {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.projects-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.projects-header h2 {
-  font-size: 2.5rem;
-  margin: 1rem 0;
-  color: var(--text-primary);
-}
-
-.projects-header p {
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.projects-grid {
+.portfolio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
-.project-card {
+.portfolio-card {
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -198,7 +181,7 @@ body::after {
   flex-direction: column;
 }
 
-.project-image-container {
+.portfolio-image-container {
   position: relative;
   width: 100%;
   height: 400px;
@@ -206,7 +189,7 @@ body::after {
   border-radius: 8px 8px 0 0;
 }
 
-.project-image {
+.portfolio-image {
   position: absolute;
   top: 0;
   left: 0;
@@ -216,15 +199,11 @@ body::after {
   transition: transform 0.3s ease;
 }
 
-.project-card:hover .project-image {
+.portfolio-card:hover .portfolio-image {
   transform: scale(1.05);
 }
 
-.project-card:hover .project-overlay {
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
-}
-
-.project-overlay {
+.portfolio-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -237,7 +216,7 @@ body::after {
   padding: 1rem;
 }
 
-.project-content {
+.portfolio-content {
   padding: 1.5rem;
   flex: 1;
   display: flex;
@@ -245,14 +224,14 @@ body::after {
   justify-content: space-between;
 }
 
-.project-title {
+.portfolio-title {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: #fff;
 }
 
-.project-description {
+.portfolio-description {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 1rem;
@@ -260,14 +239,14 @@ body::after {
   flex-grow: 1;
 }
 
-.project-tags {
+.portfolio-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.project-tag {
+.portfolio-tag {
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -275,52 +254,30 @@ body::after {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.project-links {
-  display: flex;
-  gap: 0.8rem;
-  margin-top: auto;
-}
-
-.project-link {
-  font-size: 0.8rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.project-link svg {
-  width: 12px;
-  height: 12px;
-}
-
-.project-link.primary {
-  background: var(--primary-color);
-  color: white;
-}
-
-.project-link.secondary {
-  background: var(--secondary-button-bg);
-  color: var(--text-primary);
-}
-
-.project-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
+/* Responsive */
 @media (max-width: 1024px) {
-  .projects-grid {
+  .portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 640px) {
-  .projects-grid {
+  .portfolio-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .portfolio-image-container {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-image-container {
+    height: 250px;
+  }
+  
+  .portfolio-content {
+    padding: 1rem;
   }
 }
 
@@ -328,35 +285,43 @@ body::after {
 .footer {
   text-align: center;
   padding: 30px 0;
-  color: rgba(255, 255, 255, 0.5);
+  color: #fff;
   font-size: 0.9rem;
+  background: #FFB6C1;
+  position: relative;
+  z-index: 2;
+}
+
+.footer p {
+  color: #fff;
+  opacity: 0.8;
 }
 
 /* Responsive Design */
 @media (max-width: 1800px) {
-  .projects-container {
+  .portfolio-container {
     max-width: 1600px;
     padding: 0 40px;
   }
   
-  .projects-grid {
+  .portfolio-grid {
     gap: 40px;
   }
 }
 
 @media (max-width: 1400px) {
-  .projects-grid {
+  .portfolio-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
   }
 }
 
 @media (max-width: 768px) {
-  .projects-container {
+  .portfolio-container {
     padding: 0 20px;
   }
 
-  .projects-grid {
+  .portfolio-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
@@ -420,6 +385,11 @@ body::after {
     font-size: 0.9rem;
     padding: 0.5rem 0.8rem;
   }
+
+  .footer {
+    padding: 20px 0;
+    font-size: 0.8rem;
+  }
 }
 
 /* Untuk layar sangat kecil */
@@ -428,7 +398,7 @@ body::after {
     font-size: 1.8rem;
   }
 
-  .projects-header h2,
+  .portfolio-header h2,
   .section-header h2 {
     font-size: 1.5rem;
   }
@@ -910,7 +880,7 @@ body::after {
 
 /* Unified Section Headers */
 .section-header,
-.projects-header,
+.portfolio-header,
 .services-header,
 .contact-container h2 {  /* Menambahkan contact-container h2 */
   text-align: center;
@@ -918,7 +888,7 @@ body::after {
 }
 
 .section-header h2,
-.projects-header h2,
+.portfolio-header h2,
 .services-header h2,
 .contact-container h2 {  /* Menambahkan contact-container h2 */
   font-size: 2.5rem;
@@ -934,7 +904,7 @@ body::after {
 /* Responsive untuk heading */
 @media (max-width: 768px) {
   .section-header h2,
-  .projects-header h2,
+  .portfolio-header h2,
   .services-header h2,
   .contact-container h2 {  /* Menambahkan contact-container h2 */
     font-size: 2rem;
@@ -943,7 +913,7 @@ body::after {
 
 @media (max-width: 480px) {
   .section-header h2,
-  .projects-header h2,
+  .portfolio-header h2,
   .services-header h2,
   .contact-container h2 {  /* Menambahkan contact-container h2 */
     font-size: 1.8rem;
