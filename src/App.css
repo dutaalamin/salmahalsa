@@ -907,3 +907,45 @@ body::after {
 .music-toggle i {
   font-size: 1.2rem;
 }
+
+/* Unified Section Headers */
+.section-header,
+.projects-header,
+.services-header,
+.contact-container h2 {  /* Menambahkan contact-container h2 */
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header h2,
+.projects-header h2,
+.services-header h2,
+.contact-container h2 {  /* Menambahkan contact-container h2 */
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Responsive untuk heading */
+@media (max-width: 768px) {
+  .section-header h2,
+  .projects-header h2,
+  .services-header h2,
+  .contact-container h2 {  /* Menambahkan contact-container h2 */
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header h2,
+  .projects-header h2,
+  .services-header h2,
+  .contact-container h2 {  /* Menambahkan contact-container h2 */
+    font-size: 1.8rem;
+  }
+}
